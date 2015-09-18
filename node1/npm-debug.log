@@ -1,0 +1,77 @@
+0 info it worked if it ends with ok
+1 verbose cli [ 'C:\\Program Files (x86)\\nodejs\\\\node.exe',
+1 verbose cli   'C:\\Program Files (x86)\\nodejs\\node_modules\\npm\\bin\\npm-cli.js',
+1 verbose cli   'install',
+1 verbose cli   'tds@next',
+1 verbose cli   '-g' ]
+2 info using npm@2.9.1
+3 info using node@v0.12.3
+4 verbose node symlink C:\Program Files (x86)\nodejs\\node.exe
+5 verbose install initial load of C:\Users\Adam\AppData\Roaming\npm\package.json
+6 verbose readDependencies loading dependencies from C:\Users\Adam\AppData\Roaming\npm\package.json
+7 silly cache add args [ 'tds@next', null ]
+8 verbose cache add spec tds@next
+9 silly cache add parsed spec { raw: 'tds@next',
+9 silly cache add   scope: null,
+9 silly cache add   name: 'tds',
+9 silly cache add   rawSpec: 'next',
+9 silly cache add   spec: 'next',
+9 silly cache add   type: 'tag' }
+10 silly addNamed tds@next
+11 verbose addNamed "next" is being treated as a dist-tag for tds
+12 info addNameTag [ 'tds', 'next' ]
+13 silly mapToRegistry name tds
+14 silly mapToRegistry using default registry
+15 silly mapToRegistry registry https://registry.npmjs.org/
+16 silly mapToRegistry uri https://registry.npmjs.org/tds
+17 verbose addNameTag registry:https://registry.npmjs.org/tds not in flight; fetching
+18 verbose request uri https://registry.npmjs.org/tds
+19 verbose request no auth needed
+20 info attempt registry request try #1 at 18:53:48
+21 verbose request id 7b852c56b70a0501
+22 http request GET https://registry.npmjs.org/tds
+23 http 200 https://registry.npmjs.org/tds
+24 silly get cb [ 200,
+24 silly get   { server: 'CouchDB/1.5.0 (Erlang OTP/R16B03)',
+24 silly get     etag: '"DV3Z7TJE98S7FF9CO7ORB9N3V"',
+24 silly get     'content-type': 'application/json',
+24 silly get     'cache-control': 'max-age=60',
+24 silly get     'content-length': '1434',
+24 silly get     'accept-ranges': 'bytes',
+24 silly get     date: 'Mon, 18 May 2015 16:53:45 GMT',
+24 silly get     via: '1.1 varnish',
+24 silly get     age: '0',
+24 silly get     connection: 'keep-alive',
+24 silly get     'x-served-by': 'cache-fra1237-FRA',
+24 silly get     'x-cache': 'MISS',
+24 silly get     'x-cache-hits': '0',
+24 silly get     'x-timer': 'S1431968024.578042,VS0,VE427',
+24 silly get     vary: 'Accept' } ]
+25 verbose get saving tds to C:\Users\Adam\AppData\Roaming\npm-cache\registry.npmjs.org\tds\.cache.json
+26 verbose getCacheStat cache creation not in flight; initializing
+27 verbose makeCacheDir UID & GID are irrelevant on win32
+28 silly addNameTag next cb for tds with tag next
+29 verbose stack Error: No compatible version found: tds@'next'
+29 verbose stack Valid install targets:
+29 verbose stack ["0.1.0"]
+29 verbose stack
+29 verbose stack     at installTargetsError (C:\Program Files (x86)\nodejs\node_modules\npm\lib\cache\add-named.js:262:12)
+29 verbose stack     at next (C:\Program Files (x86)\nodejs\node_modules\npm\lib\cache\add-named.js:82:10)
+29 verbose stack     at RES (C:\Program Files (x86)\nodejs\node_modules\npm\node_modules\inflight\inflight.js:23:14)
+29 verbose stack     at f (C:\Program Files (x86)\nodejs\node_modules\npm\node_modules\once\once.js:17:25)
+29 verbose stack     at saved (C:\Program Files (x86)\nodejs\node_modules\npm\lib\cache\caching-client.js:173:7)
+29 verbose stack     at FSReqWrap.oncomplete (fs.js:95:15)
+30 verbose cwd D:\prj\node1
+31 error Windows_NT 6.3.9600
+32 error argv "C:\\Program Files (x86)\\nodejs\\\\node.exe" "C:\\Program Files (x86)\\nodejs\\node_modules\\npm\\bin\\npm-cli.js" "install" "tds@next" "-g"
+33 error node v0.12.3
+34 error npm  v2.9.1
+35 error code ETARGET
+36 error notarget No compatible version found: tds@'next'
+36 error notarget Valid install targets:
+36 error notarget ["0.1.0"]
+36 error notarget
+36 error notarget This is most likely not a problem with npm itself.
+36 error notarget In most cases you or one of your dependencies are requesting
+36 error notarget a package version that doesn't exist.
+37 verbose exit [ 1, true ]
