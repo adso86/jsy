@@ -1,21 +1,59 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Smiley Face</title>
-        <link rel='stylesheet' type='text/css' href='stylesheet.css'/>
+        <title>Plan</title>
+        <style type="text/css">
+            canvas { border: 1px solid red;}
+        </style>
     </head>
     <body>
-        <input type="button" id="buttonClear" value="Wyczyść" />
         <canvas id="a" width="600" height="600">
             This text is displayed if your browser does not support HTML5 Canvas.
         </canvas>
+        <input type="button" id="buttonClear" value="Wyczyść" />
+        <input type="radio" name="drawMode" id="radioWall" value="wall" title="Ściana" />
+        <input type="radio" name="drawMode" id="radioDoorL" value="doorL" title="Drzwi lewe" />
+        <input type="radio" name="drawMode" id="radioDoorR" value="doorR" title="Drzwi prawe" />
+        Blokuj wymiar<input type="checkbox" id="chkBlockDimensions" />
+        <textarea id="txtLog"></textarea>
+        
         <script type='text/javascript' src='script.js'></script>
         <script type='text/javascript'>
-            if (DrawPlan) { 
-                DrawPlan.init({canvasId: 'a'});
-            }
-            else {
-            alert('Błąd inicjalizacji skryptów');
+            var txtLog = document.getElementById('txtLog');
+            var logTxt = function(e) {
+                txtLog.value = e;
+            }   
+            if (Draw.Plan) { 
+                var drawPlan = Draw.Plan();
+                drawPlan.init({canvasId: 'a'});
+                drawPlan.setLogger(logTxt);
+                var chkBlock = document.getElementById('chkBlockDimensions'); 
+                if (chkBlock) {
+                    chkBlock.addEventListener('click', function() {
+                        drawPlan.setDimensionsBlockade(this.checked);
+                    });
+                }
+                var radWall = document.getElementById('radioWall');
+                radWall.checked = true;
+                if (radWall) {
+                    radWall.addEventListener('click', function() {
+                        drawPlan.setMode(Draw.Mode.WALL);
+                    });
+                }
+                var radDoorL = document.getElementById('radioDoorL');
+                if (radDoorL) {
+                    radDoorL.addEventListener('click', function() {
+                        drawPlan.setMode(Draw.Mode.DOORL);
+                    });
+                }
+                var radDoorR = document.getElementById('radioDoorR');
+                if (radDoorR) {
+                    radDoorR.addEventListener('click', function() {
+                        drawPlan.setMode(Draw.Mode.DOORR);
+                    });
+                }
+            } else {
+                alert('Błąd inicjalizacji skryptów');
             }
         </script>
     </body>
