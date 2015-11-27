@@ -21,17 +21,37 @@ Draw.Point = function(x, y) {
 		normalize: function(p) {
 			x = Math.abs(x-p.getX());
 			y = Math.abs(y-p.getY());
+		},
+		distance: function(p) {
+			var xl = x - p.getX(), yl = y - p.getY();
+			return xl*xl + yl*yl;
 		}
 	} 
 };
 Draw.Wall = function(start, end) {
+	var a = end.getY() - start.getY();
+	var b = start.getX() - end.getX();
+	var	c = start.getY()*end.getX() - end.getY() * start.getX();
+	var ab = Math.sqrt(a*a+b*b);
 	return {
 		getStart: function() {
 			return start;
 		},
 		getEnd: function() {
 			return end;
-		}
+		},
+		getA: function() {
+			return a;
+		},
+		getB: function() {
+			return b;
+		},
+		getC: function() {
+			return c;
+		},
+		distance: function(point) {
+			return Math.abs(a*point.getX()+b*point.getY()+c)/ab;
+		} 
 	}
 };
 Draw.Plan = function () {
@@ -71,7 +91,7 @@ Draw.Plan = function () {
 		drawSingleLine(line);
     	context.stroke();
 	};
-	var drawDoor = function(point, orientation) {
+	var drawDoorLines = function(point, orientation) {
 		context.beginPath();
 		context.moveTo(point.getX(), point.getY());
 		//var tmp = orientation === 0 ? Draw.Point(point.getX(), doorSize + point.getY()) : Draw.Point(doorSize + point.getX(), point.getY());
@@ -139,13 +159,41 @@ Draw.Plan = function () {
 				drawLine(Draw.Wall(state.start, state.end));
 			}
 		} else if (mode === Draw.Mode.DOORL) {
-			//poszukaj najblizszej sciany
-			//oblicz orientację drzwi w stosunku do sciany
-			//rysuj drzwi
-			console.log('lewe drzwi');
+			drawScene();
+			drawDoor(getCursorCoordinates(e));
 		} else if (mode === Draw.Mode.DOORR) {
 			console.log('prawe drzwi');
 		}
+	};
+	var drawDoor = function(point) {
+		console.log('drzwi');
+		var w = closestWall(point), a, b;
+		if (w !== undefined) {
+			a = w.getB() / w.getA();
+			b = point.getY() - a * point.getX(); 
+			drawLine(Draw.Wall(Draw.Point(0, b), Draw.Point(600, a * 600 + b)));
+			//a = (w.getEnd().getY() - w.getStart().getY())/(w.getEnd().getX() - w.getStart().getX());
+			//b = w.getStart().getY() - a * w.getStart().getX();
+			console.log('debug prosta', a, b);
+		} else {
+			console.log('nie mogę znaleźć najbliższej ściany');
+		}
+		//poszukaj najblizszej sciany
+			//oblicz orientację drzwi w stosunku do sciany
+			//rysuj drzwi
+			
+	};
+	var closestWall = function(point) {
+		var i=0, f = 0, l = walls.length, m = Number.MAX_VALUE, d = 0;
+		for (i;i<l;i=i+1) {
+			d = walls[i].distance(point);
+			if (d < m) {
+				m = d;
+				f = i;
+			}
+		}
+		console.log('debug najblizsza', f);
+		return walls[f];
 	};
 	var logPoint = function(p) {
 		if (logFunction) {
